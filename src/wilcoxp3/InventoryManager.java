@@ -16,10 +16,7 @@ public class InventoryManager {
     
     public List<Product> getProductList() {
         
-        List<Product> myProductList = new ArrayList<Product>();
-     
-        
-        
+        List<Product> myProductList = new ArrayList<>();
         return myProductList;
     }
 }
