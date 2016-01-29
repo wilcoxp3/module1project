@@ -9,8 +9,6 @@ import edu.lcc.citp.utility.CollectionFileStorageUtility;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -32,18 +30,35 @@ public class InventoryManager {
     public Product getProduct(String upc) {
 
         List<Product> myProductList = getProductList();
-        
+
+        for (Product p : myProductList) {
+            if (upc.equalsIgnoreCase(p.getUpc())) {
+                return p;
+            }
+        }
+
         return null;
     }
 
     public void addProduct(Product p) {
 
+        List<Product> myProductList = getProductList();
+        if (myProductList.contains(p)) {
+            //TODO print error message here
+        } else {
+            myProductList.add(p);
+            try {
+                CollectionFileStorageUtility.save(myProductList, Product.class);
+            } catch (IOException e) {
+                //TODO print error message here
+            }
+        }
     }
 
     public void updateProduct(Product p) {
 
         try {
-        CollectionFileStorageUtility.save(getProductList(), Product.class);
+            CollectionFileStorageUtility.save(getProductList(), Product.class);
         } catch (IOException e) {
             //TODO print error message here
         }
