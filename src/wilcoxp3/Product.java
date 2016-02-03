@@ -96,6 +96,6 @@ public class Product implements Comparable<Product>, Serializable {
      */
     @Override
     public int compareTo(Product p) {
-        return this.getUpc().compareTo(p.getUpc());
+        return this.getUpc().compareToIgnoreCase(p.getUpc());
     }
 }

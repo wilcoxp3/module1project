@@ -57,6 +57,17 @@ public class InventoryManager {
 
     public void updateProduct(Product p) {
 
+        List<Product> myProductList = getProductList();
+        for (Product product: myProductList) {
+            if (product.getUpc().equalsIgnoreCase(p.getUpc())) {
+                product.setShortDetails(p.getShortDetails());
+                product.setLongDetails(p.getLongDetails());
+                product.setPrice(p.getPrice());
+                product.setStock(p.getStock());
+            } else {
+                System.out.println("Product not found.");
+            }
+        }
         try {
             CollectionFileStorageUtility.save(getProductList(), Product.class);
         } catch (IOException e) {
