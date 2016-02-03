@@ -44,7 +44,7 @@ public class InventoryManager {
 
         List<Product> myProductList = getProductList();
         if (myProductList.contains(p)) {
-            //TODO print error message here
+            System.out.println("Product is already in database.");
         } else {
             myProductList.add(p);
             try {
@@ -65,7 +65,21 @@ public class InventoryManager {
     }
 
     public void removeProduct(String upc) {
-
+        
+        List<Product> myProductList = getProductList();
+        for (Product p: myProductList) {
+            if (p.getUpc().equals(upc)) {
+                myProductList.remove(p);
+            } else {
+                System.out.println("Product not found.");
+            }
+        }
+        
+        try {
+            CollectionFileStorageUtility.save(myProductList, Product.class);
+        } catch (IOException e) {
+            //TODO print error message here
+        }
     }
 
 }
