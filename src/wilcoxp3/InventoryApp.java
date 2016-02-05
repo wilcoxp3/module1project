@@ -49,7 +49,7 @@ public class InventoryApp {
     }
 
     public static void viewProductInfo() {
-        
+
         System.out.println("Enter product UPC to view details: ");
         String upc = sc.nextLine().trim();
         Product product = inventoryManager.getProduct(upc);
@@ -65,9 +65,9 @@ public class InventoryApp {
     }
 
     public static void addNewProduct() {
-        
+
         Product product = new Product();
-        
+
         System.out.print("Enter information about a new product below.\n"
                 + "Enter new product UPC: ");
         product.setUpc(sc.nextLine().trim());
@@ -81,31 +81,37 @@ public class InventoryApp {
         System.out.println("Enter new product quantity in stock: ");
         product.setStock(sc.nextInt());
         sc.nextLine();
-        
+
         inventoryManager.addProduct(product);
         System.out.println("New product entered successfully!");
     }
 
     public static void updateProductInfo() {
-        
+
         Product product = new Product();
-        
+        String upc;
         System.out.print("Enter product information to update below.\n"
                 + "Enter the UPC of the product to update: ");
-        product.setUpc(sc.nextLine().trim());
-        System.out.println("Enter the updated short details: ");
-        product.setShortDetails(sc.nextLine());
-        System.out.println("Enter the updated long details: ");
-        product.setLongDetails(sc.nextLine());
-        System.out.println("Enter the updated price: ");
-        product.setPrice(sc.nextBigDecimal());
-        sc.nextLine();
-        System.out.println("Enter the updated quantity in stock: ");
-        product.setStock(sc.nextInt());
-        sc.nextLine();
-        
-        inventoryManager.updateProduct(product);
-        System.out.println("Product updated successfully!");
+        upc = sc.nextLine().trim();
+        if (inventoryManager.getProduct(upc) != null) {
+            product.setUpc(upc);
+            System.out.println("Enter the updated short details: ");
+            product.setShortDetails(sc.nextLine());
+            System.out.println("Enter the updated long details: ");
+            product.setLongDetails(sc.nextLine());
+            System.out.println("Enter the updated price: ");
+            product.setPrice(sc.nextBigDecimal());
+            sc.nextLine();
+            System.out.println("Enter the updated quantity in stock: ");
+            product.setStock(sc.nextInt());
+            sc.nextLine();
+
+            inventoryManager.updateProduct(product);
+            System.out.println("Product updated successfully!");
+        } else {
+            System.out.println("Product not found.");
+        }
+
     }
 
     public static void deleteProduct() {

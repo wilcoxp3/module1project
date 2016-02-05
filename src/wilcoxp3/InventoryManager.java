@@ -16,20 +16,23 @@ import java.util.List;
  */
 public class InventoryManager {
 
+    List<Product> myProductList;
+    
     public List<Product> getProductList() {
 
-        List<Product> myProductList = new ArrayList<>();
+        myProductList = new ArrayList<>();
+        
         try {
             myProductList.addAll(CollectionFileStorageUtility.load(Product.class));
         } catch (IOException | ClassNotFoundException e) {
-            //TODO print error message here
+            System.out.println("Error: could not load product list.");
         }
         return myProductList;
     }
 
     public Product getProduct(String upc) {
 
-        List<Product> myProductList = getProductList();
+        myProductList = getProductList();
 
         for (Product p : myProductList) {
             if (upc.equalsIgnoreCase(p.getUpc())) {
@@ -42,7 +45,7 @@ public class InventoryManager {
 
     public void addProduct(Product p) {
 
-        List<Product> myProductList = getProductList();
+        myProductList = getProductList();
         if (myProductList.contains(p)) {
             System.out.println("Product is already in database.");
         } else {
@@ -50,15 +53,15 @@ public class InventoryManager {
             try {
                 CollectionFileStorageUtility.save(myProductList, Product.class);
             } catch (IOException e) {
-                //TODO print error message here
+                System.out.println("Erro: could not save product.");
             }
         }
     }
 
     public void updateProduct(Product p) {
 
-        List<Product> myProductList = getProductList();
-        for (Product product: myProductList) {
+        myProductList = getProductList();
+        for (Product product : myProductList) {
             if (product.getUpc().equalsIgnoreCase(p.getUpc())) {
                 product.setShortDetails(p.getShortDetails());
                 product.setLongDetails(p.getLongDetails());
@@ -69,28 +72,27 @@ public class InventoryManager {
             }
         }
         try {
-            CollectionFileStorageUtility.save(getProductList(), Product.class);
+            CollectionFileStorageUtility.save(myProductList, Product.class);
         } catch (IOException e) {
-            //TODO print error message here
+            System.out.println("Error: could not save product.");
         }
     }
 
     public void removeProduct(String upc) {
-        
-        List<Product> myProductList = getProductList();
-        for (Product p: myProductList) {
+
+        myProductList = getProductList();
+        for (Product p : myProductList) {
             if (p.getUpc().equals(upc)) {
                 myProductList.remove(p);
             } else {
                 System.out.println("Product not found.");
             }
         }
-        
+
         try {
             CollectionFileStorageUtility.save(myProductList, Product.class);
         } catch (IOException e) {
-            //TODO print error message here
+            System.out.println("Error: could delete product.");
         }
     }
-
 }
