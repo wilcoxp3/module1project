@@ -115,7 +115,8 @@ public class InventoryApp {
     }
 
     public static void deleteProduct() {
-        System.out.println("deleteProduct");
+        System.out.print("Enter the UPC of the product to delete.");
+        inventoryManager.removeProduct(sc.nextLine().trim());
     }
 
 }

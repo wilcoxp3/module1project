@@ -17,11 +17,11 @@ import java.util.List;
 public class InventoryManager {
 
     List<Product> myProductList;
-    
+
     public List<Product> getProductList() {
 
         myProductList = new ArrayList<>();
-        
+
         try {
             myProductList.addAll(CollectionFileStorageUtility.load(Product.class));
         } catch (IOException | ClassNotFoundException e) {
@@ -84,6 +84,7 @@ public class InventoryManager {
         for (Product p : myProductList) {
             if (p.getUpc().equals(upc)) {
                 myProductList.remove(p);
+                return;
             } else {
                 System.out.println("Product not found.");
             }
