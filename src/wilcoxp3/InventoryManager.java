@@ -15,12 +15,21 @@ import java.util.List;
 
 /**
  *
+ * The InventoryManager class makes all changes to the product inventory. It
+ * loads from and saves to a locally stored file the product inventory as a
+ * List.
+ *
  * @author wilcoxp3
  */
 public class InventoryManager {
 
     List<Product> myProductList;
 
+    /**
+     * This method loads the product list from a file, and returns the list.
+     *
+     * @return myProductList
+     */
     public List<Product> getProductList() {
 
         myProductList = new ArrayList<>();
@@ -33,6 +42,13 @@ public class InventoryManager {
         return myProductList;
     }
 
+    /**
+     * This method gets a product from the product list with a UPC which matches
+     * what the user has entered. If no UPC is found, returns null.
+     *
+     * @param upc
+     * @return Product p
+     */
     public Product getProduct(String upc) {
 
         myProductList = getProductList();
@@ -46,6 +62,13 @@ public class InventoryManager {
         return null;
     }
 
+    /**
+     * This method adds a product to the list as specified by the user and saves
+     * the new list. It displays an error message if a product with the same UPC
+     * is already in the list.
+     *
+     * @param p
+     */
     public void addProduct(Product p) {
 
         myProductList = getProductList();
@@ -61,6 +84,13 @@ public class InventoryManager {
         }
     }
 
+    /**
+     * This method updates the fields for an existing product as specified by
+     * the user, and saves the updated product list. If no product with a
+     * matching UPC is found, displays an error message.
+     *
+     * @param p
+     */
     public void updateProduct(Product p) {
 
         myProductList = getProductList();
@@ -70,17 +100,23 @@ public class InventoryManager {
                 product.setLongDetails(p.getLongDetails());
                 product.setPrice(p.getPrice());
                 product.setStock(p.getStock());
+                try {
+                    CollectionFileStorageUtility.save(myProductList, Product.class);
+                } catch (IOException e) {
+                    System.out.println("Error: could not save product.");
+                }
+                break;
             } else {
                 System.out.println("Product not found.");
             }
         }
-        try {
-            CollectionFileStorageUtility.save(myProductList, Product.class);
-        } catch (IOException e) {
-            System.out.println("Error: could not save product.");
-        }
+
     }
 
+    /**
+     * This 
+     * @param upc 
+     */
     public void removeProduct(String upc) {
 
         myProductList = getProductList();
