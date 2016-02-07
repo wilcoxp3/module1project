@@ -26,11 +26,18 @@ public class InventoryManager {
     List<Product> myProductList;
 
     /**
+     * Default constructor for InvetoryManager loads the list of products.
+     */
+    public InventoryManager() {
+        myProductList = getProductList();
+    }
+
+    /**
      * This method loads the product list from a file, and returns the list.
      *
      * @return myProductList
      */
-    public List<Product> getProductList() {
+    public final List<Product> getProductList() {
 
         myProductList = new ArrayList<>();
 
@@ -51,8 +58,6 @@ public class InventoryManager {
      */
     public Product getProduct(String upc) {
 
-        myProductList = getProductList();
-
         for (Product p : myProductList) {
             if (upc.equalsIgnoreCase(p.getUpc())) {
                 return p;
@@ -71,7 +76,6 @@ public class InventoryManager {
      */
     public void addProduct(Product p) {
 
-        myProductList = getProductList();
         if (myProductList.contains(p)) {
             System.out.println("Product is already in database.");
         } else {
@@ -93,7 +97,6 @@ public class InventoryManager {
      */
     public void updateProduct(Product p) {
 
-        myProductList = getProductList();
         for (Product product : myProductList) {
             if (product.getUpc().equalsIgnoreCase(p.getUpc())) {
                 product.setShortDetails(p.getShortDetails());
@@ -114,12 +117,13 @@ public class InventoryManager {
     }
 
     /**
-     * This 
-     * @param upc 
+     * This method deletes a product from the product list as specified by the
+     * user and saves the updated list.
+     *
+     * @param upc
      */
     public void removeProduct(String upc) {
 
-        myProductList = getProductList();
         for (Product p : myProductList) {
             if (p.getUpc().equals(upc)) {
                 myProductList.remove(p);
