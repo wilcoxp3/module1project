@@ -13,7 +13,10 @@ import java.math.BigDecimal;
 
 /**
  *
- * The
+ * The Product class represents a product in the inventory, and contains fields
+ * for the UPC code, short details, long details, the price, and the quantity in
+ * stock. It also overrides compareTo to compare products by their UPCs.
+ *
  * @author wilcoxp3
  */
 public class Product implements Comparable<Product>, Serializable {
@@ -25,42 +28,42 @@ public class Product implements Comparable<Product>, Serializable {
     private Integer stock;
 
     /**
-     * @return the upc
+     * @return the UPC code.
      */
     public String getUpc() {
         return upc;
     }
 
     /**
-     * @param upc the upc to set
+     * @param upc the UPC code to set
      */
     public void setUpc(String upc) {
         this.upc = upc;
     }
 
     /**
-     * @return the shortDetails
+     * @return the short details
      */
     public String getShortDetails() {
         return shortDetails;
     }
 
     /**
-     * @param shortDetails the shortDetails to set
+     * @param shortDetails the short details to set
      */
     public void setShortDetails(String shortDetails) {
         this.shortDetails = shortDetails;
     }
 
     /**
-     * @return the longDetails
+     * @return the long details
      */
     public String getLongDetails() {
         return longDetails;
     }
 
     /**
-     * @param longDetails the longDetails to set
+     * @param longDetails the long details to set
      */
     public void setLongDetails(String longDetails) {
         this.longDetails = longDetails;
@@ -81,22 +84,26 @@ public class Product implements Comparable<Product>, Serializable {
     }
 
     /**
-     * @return the stock
+     * @return the quantity in stock
      */
     public Integer getStock() {
         return stock;
     }
 
     /**
-     * @param stock the stock to set
+     * @param stock the quantity in stock to set
      */
     public void setStock(Integer stock) {
         this.stock = stock;
     }
 
     /**
+     *
+     * This method returns the int comparison of two products based on the UPC
+     * code of each product.
+     *
      * @param p
-     * @return int the comparison of the two product's upcs
+     * @return the comparison of the two product's upcs
      */
     @Override
     public int compareTo(Product p) {
