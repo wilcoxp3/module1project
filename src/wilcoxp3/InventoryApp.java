@@ -1,27 +1,37 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package wilcoxp3;
 
+/*
+ * Paul Wilcox 
+ * Module 1 Project 
+ * This application allows the user to manage
+ * inventory of a product. The user may add view a product's information, add a
+ * new product to the inventory, update information for an existing product, or
+ * delete a product from the inventory.
+ */
 import java.util.Scanner;
 
 /**
+ *
+ * The InventoryApp class contains the main method for Inventory Manager
+ * Application. It contains the user interface through which the user may view,
+ * add, update, or delete product information.
  *
  * @author wilcoxp3
  */
 public class InventoryApp {
 
-    private static Scanner sc = new Scanner(System.in);
-    private static InventoryManager inventoryManager = new InventoryManager();
+    private static final Scanner sc = new Scanner(System.in);
+    private static final InventoryManager inventoryManager = new InventoryManager();
 
     /**
+     *
+     * The main method for the Inventory Manager Application.
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args) {
 
-        System.out.println("Welcome to the inventory manager application!");
+        System.out.println("Welcome to the Inventory Manager Application!");
         String choice = new String();
         while (!choice.equalsIgnoreCase("5")) {
             System.out.print("What would you like to do?\n"
@@ -48,6 +58,10 @@ public class InventoryApp {
         }
     }
 
+    /**
+     * This method allows the user to view information for an existing product
+     * by entering the product's UPC.
+     */
     public static void viewProductInfo() {
 
         System.out.println("Enter product UPC to view details: ");
@@ -64,6 +78,9 @@ public class InventoryApp {
         }
     }
 
+    /**
+     * This method allows the user to add a new product to the inventory.
+     */
     public static void addNewProduct() {
 
         Product product = new Product();
@@ -86,6 +103,10 @@ public class InventoryApp {
         System.out.println("New product entered successfully!");
     }
 
+    /**
+     * This method allows the user to update the information of an existing
+     * product.
+     */
     public static void updateProductInfo() {
 
         Product product = new Product();
@@ -114,6 +135,9 @@ public class InventoryApp {
 
     }
 
+    /**
+     * This method allows the user to delete a product from the inventory.
+     */
     public static void deleteProduct() {
         System.out.print("Enter the UPC of the product to delete.");
         inventoryManager.removeProduct(sc.nextLine().trim());

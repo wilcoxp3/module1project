@@ -1,10 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package wilcoxp3;
 
+/*
+ * Paul Wilcox 
+ * Module 1 Project 
+ * This application allows the user to manage
+ * inventory of a product. The user may add view a product's information, add a
+ * new product to the inventory, update information for an existing product, or
+ * delete a product from the inventory.
+ */
 import edu.lcc.citp.utility.CollectionFileStorageUtility;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -53,7 +56,7 @@ public class InventoryManager {
             try {
                 CollectionFileStorageUtility.save(myProductList, Product.class);
             } catch (IOException e) {
-                System.out.println("Erro: could not save product.");
+                System.out.println("Error: could not save product.");
             }
         }
     }
@@ -84,16 +87,16 @@ public class InventoryManager {
         for (Product p : myProductList) {
             if (p.getUpc().equals(upc)) {
                 myProductList.remove(p);
-                return;
+                System.out.println("Product successfully deleted.");
+                try {
+                    CollectionFileStorageUtility.save(myProductList, Product.class);
+                } catch (IOException e) {
+                    System.out.println("Error: could not delete product.");
+                }
+                break;
             } else {
                 System.out.println("Product not found.");
             }
-        }
-
-        try {
-            CollectionFileStorageUtility.save(myProductList, Product.class);
-        } catch (IOException e) {
-            System.out.println("Error: could delete product.");
         }
     }
 }
