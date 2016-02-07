@@ -76,15 +76,17 @@ public class InventoryManager {
      */
     public void addProduct(Product p) {
 
-        if (myProductList.contains(p)) {
-            System.out.println("Product is already in database.");
-        } else {
-            myProductList.add(p);
-            try {
-                CollectionFileStorageUtility.save(myProductList, Product.class);
-            } catch (IOException e) {
-                System.out.println("Error: could not save product.");
+        for (Product product : myProductList) {
+            if (product.compareTo(p) == 0) {
+                System.out.println("Product is already in database.");
+                return;
             }
+        }
+        myProductList.add(p);
+        try {
+            CollectionFileStorageUtility.save(myProductList, Product.class);
+        } catch (IOException e) {
+            System.out.println("Error: could not save product.");
         }
     }
 
@@ -98,7 +100,7 @@ public class InventoryManager {
     public void updateProduct(Product p) {
 
         for (Product product : myProductList) {
-            if (product.getUpc().equalsIgnoreCase(p.getUpc())) {
+            if (product.compareTo(p) == 0) {
                 product.setShortDetails(p.getShortDetails());
                 product.setLongDetails(p.getLongDetails());
                 product.setPrice(p.getPrice());
@@ -108,7 +110,7 @@ public class InventoryManager {
                 } catch (IOException e) {
                     System.out.println("Error: could not save product.");
                 }
-                break;
+                return;
             } else {
                 System.out.println("Product not found.");
             }
@@ -126,7 +128,7 @@ public class InventoryManager {
     public void removeProduct(String upc) {
 
         for (Product p : myProductList) {
-            if (p.getUpc().equals(upc)) {
+            if (p.getUpc().equalsIgnoreCase(upc)) {
                 myProductList.remove(p);
                 System.out.println("Product successfully deleted.");
                 try {
@@ -134,10 +136,9 @@ public class InventoryManager {
                 } catch (IOException e) {
                     System.out.println("Error: could not delete product.");
                 }
-                break;
-            } else {
-                System.out.println("Product not found.");
+                return;
             }
         }
+        System.out.println("Product not found.");
     }
 }

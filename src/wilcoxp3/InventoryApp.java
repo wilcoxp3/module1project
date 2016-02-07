@@ -87,20 +87,26 @@ public class InventoryApp {
 
         System.out.print("Enter information about a new product below.\n"
                 + "Enter new product UPC: ");
-        product.setUpc(sc.nextLine().trim());
-        System.out.println("Enter new product short details: ");
-        product.setShortDetails(sc.nextLine());
-        System.out.println("Enter new product long details: ");
-        product.setLongDetails(sc.nextLine());
-        System.out.println("Enter new product price: ");
-        product.setPrice(sc.nextBigDecimal());
-        sc.nextLine();
-        System.out.println("Enter new product quantity in stock: ");
-        product.setStock(sc.nextInt());
-        sc.nextLine();
+        String upc = sc.nextLine().trim();
+        if (inventoryManager.getProduct(upc) == null) {
+            product.setUpc(upc);
+            System.out.println("Enter new product short details: ");
+            product.setShortDetails(sc.nextLine());
+            System.out.println("Enter new product long details: ");
+            product.setLongDetails(sc.nextLine());
+            System.out.println("Enter new product price: ");
+            product.setPrice(sc.nextBigDecimal());
+            sc.nextLine();
+            System.out.println("Enter new product quantity in stock: ");
+            product.setStock(sc.nextInt());
+            sc.nextLine();
+            inventoryManager.addProduct(product);
+            System.out.println("New product entered successfully!");
 
-        inventoryManager.addProduct(product);
-        System.out.println("New product entered successfully!");
+        } else {
+            System.out.println("Error: Product already exists.");
+        }
+
     }
 
     /**
