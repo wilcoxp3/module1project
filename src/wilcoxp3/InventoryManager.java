@@ -118,7 +118,8 @@ public class InventoryManager {
 
     /**
      * This method deletes a product from the product list as specified by the
-     * user and saves the updated list.
+     * user and saves the updated list. If no product with a matching UPC is
+     * found, displays an error message.
      *
      * @param upc
      */
