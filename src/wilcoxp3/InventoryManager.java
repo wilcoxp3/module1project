@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class InventoryManager {
 
-    List<Product> myProductList;
+    List<Product> myProductList; // This pattern will cause problems with databases
 
     /**
      * Default constructor for InvetoryManager loads the list of products.
@@ -100,7 +100,7 @@ public class InventoryManager {
     public void updateProduct(Product p) {
 
         for (Product product : myProductList) {
-            if (product.compareTo(p) == 0) {
+            if (product.compareTo(p) == 0) { //forgot null check for each field?
                 product.setShortDetails(p.getShortDetails());
                 product.setLongDetails(p.getLongDetails());
                 product.setPrice(p.getPrice());
